@@ -8,6 +8,7 @@ This project provides a Grafana dashboard for visualizing CVE (Common Vulnerabil
 
 - **Comprehensive Data Visualization**: Display and analyze CVE data.
 - **Standards Integration**: Seamless integration with CVE, CWE, and CPE data.
+- **Interactive Filters**: Customize the data displayed with user-friendly filters.
 
 ## Setup Instructions
 
@@ -18,17 +19,15 @@ This project provides a Grafana dashboard for visualizing CVE (Common Vulnerabil
 
 ### Steps to Run the Project
 
-#### 1. Clone the FastCVE database
+#### 1. Clone the FastCVE project and configure the project with the instructions in README.md file.
 
 ```bash
 git clone https://github.com/binareio/FastCVE.git
 ```
 
-Configure the project with the instructions of README.MD
-
 ### 2. Run Grafana
 
-Ensure that both FastCVE and Grafana containers are running in the same Docker network. You can achieve this by specifying the network in the Docker run command:
+Ensure that both FastCVE and Grafana containers are running in the same Docker network, so it's easier to configure the grafana dashboard to fastcve backend.
 
 ```bash
 docker run -d --name=grafana -p 3000:3000 grafana/grafana
@@ -41,6 +40,8 @@ Log in to Grafana using the default credentials (username: admin, password: admi
 Go to Dashboards -> Manage.
 Click the Import button.
 Upload the dashboard.json file located in the FastCVEDashboard repository.
+
+![alt text](image.png)
 
 ### 4. Access the Dashboard
 

@@ -33,6 +33,10 @@ Ensure that both FastCVE and Grafana containers are running in the same Docker n
 docker run -d --name=grafana -p 3000:3000 grafana/grafana
 ```
 
+### 3. Add the new DataSource
+
+![alt text](image-1.png)
+
 ### 3. Import the Grafana Dashboard
 
 Open your web browser and navigate to http://localhost:3000.

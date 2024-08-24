@@ -41,7 +41,7 @@ cd fastcve-grafana
 Ensure that both FastCVE and Grafana containers are running in the same Docker network. You can achieve this by specifying the network in the Docker run command:
 docker run -d --name=grafana --network=<your_fastcve_network> -p 3000:3000 grafana/grafana
 
-Replace <your_fastcve_network> with the actual Docker network name that FastCVE is using. If you haven't created a custom network, Docker Compose should handle this automatically if both services are defined in the same docker-compose.yml file. 4. Import the Grafana Dashboard
+Replace <your_fastcve_network> with the actual Docker network name that FastCVE is using. If you haven't created a custom network, Docker Compose should handle this automatically if both services are defined in the same docker-compose.yml file. 4.
 
 ### 4. Import the Grafana Dashboard
 

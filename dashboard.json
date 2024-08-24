@@ -1,0 +1,672 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 1,
+  "links": [],
+  "panels": [
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 8,
+      "panels": [
+        {
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "fdvkyyrrrqtq8a"
+          },
+          "description": "Shows base score, impact score and exploitability score.",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "fillOpacity": 80,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineWidth": 1,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "short"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 7,
+            "w": 23,
+            "x": 0,
+            "y": 1
+          },
+          "id": 2,
+          "options": {
+            "barRadius": 0,
+            "barWidth": 0.97,
+            "fullHighlight": false,
+            "groupWidth": 0.7,
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "right",
+              "showLegend": true
+            },
+            "orientation": "auto",
+            "showValue": "never",
+            "stacking": "none",
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            },
+            "xTickLabelRotation": 0,
+            "xTickLabelSpacing": 300
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "grafana-postgresql-datasource",
+                "uid": "fdvkyyrrrqtq8a"
+              },
+              "editorMode": "code",
+              "format": "table",
+              "rawQuery": true,
+              "rawSql": "SELECT \r\n    vuln_id AS \"Vulnerability ID\", \r\n    (data->'metrics'->'cvssMetricV2'->0->'cvssData'->>'baseScore')::float AS \"BaseScore\",\r\n    (data->'metrics'->'cvssMetricV2'->0->>'impactScore')::float AS \"ImpactScore\",\r\n    (data->'metrics'->'cvssMetricV2'->0->>'exploitabilityScore')::float AS \"ExploitabilityScore\"\r\nFROM \r\n    vuln \r\nWHERE \r\n    vuln_id IN ($VULNERABILITY)\r\nLIMIT 50;\r\n",
+              "refId": "A",
+              "sql": {
+                "columns": [
+                  {
+                    "parameters": [],
+                    "type": "function"
+                  }
+                ],
+                "groupBy": [
+                  {
+                    "property": {
+                      "type": "string"
+                    },
+                    "type": "groupBy"
+                  }
+                ],
+                "limit": 50
+              }
+            }
+          ],
+          "title": "Scoring",
+          "type": "barchart"
+        },
+        {
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "fdvkyyrrrqtq8a"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {
+                "align": "auto",
+                "cellOptions": {
+                  "type": "color-text",
+                  "wrapText": true
+                },
+                "inspect": true
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "vuln_id"
+                },
+                "properties": [
+                  {
+                    "id": "displayName",
+                    "value": "Vulnerability ID"
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "published_date"
+                },
+                "properties": [
+                  {
+                    "id": "displayName",
+                    "value": "Published"
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "last_modified_date"
+                },
+                "properties": [
+                  {
+                    "id": "displayName",
+                    "value": "Last modified"
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "description"
+                },
+                "properties": [
+                  {
+                    "id": "displayName",
+                    "value": "Description"
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 12,
+            "w": 23,
+            "x": 0,
+            "y": 8
+          },
+          "id": 1,
+          "options": {
+            "cellHeight": "lg",
+            "footer": {
+              "countRows": false,
+              "enablePagination": true,
+              "fields": "",
+              "reducer": ["sum"],
+              "show": false
+            },
+            "showHeader": true,
+            "sortBy": [
+              {
+                "desc": false,
+                "displayName": "baseScore"
+              }
+            ]
+          },
+          "pluginVersion": "11.1.4",
+          "targets": [
+            {
+              "datasource": {
+                "type": "grafana-postgresql-datasource",
+                "uid": "fdvkyyrrrqtq8a"
+              },
+              "editorMode": "code",
+              "format": "table",
+              "rawQuery": true,
+              "rawSql": "SELECT \r\n    vuln_id, \r\n    published_date, \r\n    last_modified_date, \r\n    description,\r\n    (data->'metrics'->'cvssMetricV2'->0->'cvssData'->>'baseScore')::float AS \"BaseScore\",\r\n    (data->'metrics'->'cvssMetricV2'->0->>'impactScore')::float AS \"ImpactScore\",\r\n    (data->'metrics'->'cvssMetricV2'->0->>'exploitabilityScore')::float AS \"ExploitabilityScore\"\r\nFROM \r\n    vuln \r\nWHERE \r\n    vuln_id IN ($VULNERABILITY)\r\nLIMIT 50;\r\n",
+              "refId": "A",
+              "sql": {
+                "columns": [
+                  {
+                    "parameters": [
+                      {
+                        "name": "vuln_id",
+                        "type": "functionParameter"
+                      }
+                    ],
+                    "type": "function"
+                  },
+                  {
+                    "parameters": [
+                      {
+                        "name": "published_date",
+                        "type": "functionParameter"
+                      }
+                    ],
+                    "type": "function"
+                  },
+                  {
+                    "parameters": [
+                      {
+                        "name": "last_modified_date",
+                        "type": "functionParameter"
+                      }
+                    ],
+                    "type": "function"
+                  },
+                  {
+                    "parameters": [
+                      {
+                        "name": "description",
+                        "type": "functionParameter"
+                      }
+                    ],
+                    "type": "function"
+                  }
+                ],
+                "groupBy": [
+                  {
+                    "property": {
+                      "type": "string"
+                    },
+                    "type": "groupBy"
+                  }
+                ],
+                "limit": 50,
+                "whereJsonTree": {
+                  "children1": [
+                    {
+                      "id": "aab8899b-4567-489a-bcde-f19179cf7734",
+                      "properties": {
+                        "field": "vuln_id",
+                        "fieldSrc": "field",
+                        "operator": "equal",
+                        "value": ["$VULNERABILITY"],
+                        "valueError": [null],
+                        "valueSrc": ["value"],
+                        "valueType": ["text"]
+                      },
+                      "type": "rule"
+                    }
+                  ],
+                  "id": "88998889-0123-4456-b89a-b19179b1a168",
+                  "type": "group"
+                },
+                "whereString": "vuln_id = '$VULNERABILITY'"
+              },
+              "table": "vuln"
+            }
+          ],
+          "title": "CVE VULNS",
+          "type": "table"
+        }
+      ],
+      "title": "CVE",
+      "type": "row"
+    },
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 1
+      },
+      "id": 5,
+      "panels": [
+        {
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "fdvkyyrrrqtq8a"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "auto",
+                "cellOptions": {
+                  "type": "auto"
+                },
+                "inspect": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 5,
+            "w": 23,
+            "x": 0,
+            "y": 2
+          },
+          "id": 7,
+          "options": {
+            "cellHeight": "sm",
+            "footer": {
+              "countRows": false,
+              "fields": "",
+              "reducer": ["sum"],
+              "show": false
+            },
+            "showHeader": true
+          },
+          "pluginVersion": "11.1.4",
+          "targets": [
+            {
+              "datasource": {
+                "type": "grafana-postgresql-datasource",
+                "uid": "fdvkyyrrrqtq8a"
+              },
+              "editorMode": "code",
+              "format": "table",
+              "rawQuery": true,
+              "rawSql": "SELECT id, name, name_id, sys_creation_date, vendor, product \r\nFROM cpe \r\nWHERE name_id = '$CPE'\r\nLIMIT 50;\r\n",
+              "refId": "A",
+              "sql": {
+                "columns": [
+                  {
+                    "parameters": [
+                      {
+                        "name": "id",
+                        "type": "functionParameter"
+                      }
+                    ],
+                    "type": "function"
+                  },
+                  {
+                    "parameters": [
+                      {
+                        "name": "name",
+                        "type": "functionParameter"
+                      }
+                    ],
+                    "type": "function"
+                  },
+                  {
+                    "parameters": [
+                      {
+                        "name": "name_id",
+                        "type": "functionParameter"
+                      }
+                    ],
+                    "type": "function"
+                  },
+                  {
+                    "parameters": [
+                      {
+                        "name": "sys_creation_date",
+                        "type": "functionParameter"
+                      }
+                    ],
+                    "type": "function"
+                  },
+                  {
+                    "parameters": [
+                      {
+                        "name": "vendor",
+                        "type": "functionParameter"
+                      }
+                    ],
+                    "type": "function"
+                  },
+                  {
+                    "parameters": [
+                      {
+                        "name": "product",
+                        "type": "functionParameter"
+                      }
+                    ],
+                    "type": "function"
+                  }
+                ],
+                "groupBy": [
+                  {
+                    "property": {
+                      "type": "string"
+                    },
+                    "type": "groupBy"
+                  }
+                ],
+                "limit": 50
+              },
+              "table": "cpe"
+            }
+          ],
+          "title": "CPE",
+          "type": "table"
+        }
+      ],
+      "title": "CPE",
+      "type": "row"
+    },
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 2
+      },
+      "id": 4,
+      "panels": [
+        {
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "fdvkyyrrrqtq8a"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "custom": {
+                "align": "auto",
+                "cellOptions": {
+                  "type": "color-text",
+                  "wrapText": true
+                },
+                "inspect": true
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 13,
+            "w": 23,
+            "x": 0,
+            "y": 22
+          },
+          "id": 3,
+          "options": {
+            "cellHeight": "lg",
+            "footer": {
+              "countRows": false,
+              "fields": "",
+              "reducer": ["sum"],
+              "show": false
+            },
+            "showHeader": true
+          },
+          "pluginVersion": "11.1.4",
+          "targets": [
+            {
+              "datasource": {
+                "type": "grafana-postgresql-datasource",
+                "uid": "fdvkyyrrrqtq8a"
+              },
+              "editorMode": "code",
+              "format": "table",
+              "rawQuery": true,
+              "rawSql": "SELECT \r\n    id, \r\n    cwe_id, \r\n    name, \r\n    status, \r\n    description\r\nFROM \r\n    cwe\r\nWHERE cwe_id IN ($CWE)\r\nLIMIT 50;\r\n",
+              "refId": "A",
+              "sql": {
+                "columns": [
+                  {
+                    "parameters": [],
+                    "type": "function"
+                  }
+                ],
+                "groupBy": [
+                  {
+                    "property": {
+                      "type": "string"
+                    },
+                    "type": "groupBy"
+                  }
+                ],
+                "limit": 50
+              }
+            }
+          ],
+          "title": "CWE table",
+          "type": "table"
+        }
+      ],
+      "title": "CWE",
+      "type": "row"
+    }
+  ],
+  "schemaVersion": 39,
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "allValue": "",
+        "current": {
+          "selected": false,
+          "text": "CVE-1999-0001",
+          "value": "CVE-1999-0001"
+        },
+        "datasource": {
+          "type": "grafana-postgresql-datasource",
+          "uid": "fdvkyyrrrqtq8a"
+        },
+        "definition": "SELECT DISTINCT vuln_id FROM vuln\n",
+        "hide": 0,
+        "includeAll": false,
+        "label": "CVE VULNERABILITY",
+        "multi": true,
+        "name": "VULNERABILITY",
+        "options": [],
+        "query": "SELECT DISTINCT vuln_id FROM vuln\n",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "000007A8-79E3-4DF7-A00E-326188269361",
+          "value": "000007A8-79E3-4DF7-A00E-326188269361"
+        },
+        "datasource": {
+          "type": "grafana-postgresql-datasource",
+          "uid": "fdvkyyrrrqtq8a"
+        },
+        "definition": "SELECT DISTINCT name_id FROM cpe ORDER BY name_id;",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Enter CPE ",
+        "multi": false,
+        "name": "CPE",
+        "options": [],
+        "query": "SELECT DISTINCT name_id FROM cpe ORDER BY name_id;",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "allValue": "blank = ALL",
+        "current": {
+          "selected": true,
+          "text": ["5", "14"],
+          "value": ["5", "14"]
+        },
+        "datasource": {
+          "type": "grafana-postgresql-datasource",
+          "uid": "fdvkyyrrrqtq8a"
+        },
+        "definition": "SELECT DISTINCT cwe_id FROM cwe ORDER BY cwe_id",
+        "hide": 0,
+        "includeAll": false,
+        "label": "CWE",
+        "multi": true,
+        "name": "CWE",
+        "options": [],
+        "query": "SELECT DISTINCT cwe_id FROM cwe ORDER BY cwe_id",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "vulnerability dashboard",
+  "uid": "advl4ljmua29se",
+  "version": 22,
+  "weekStart": ""
+}

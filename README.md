@@ -8,7 +8,6 @@ This project provides a Grafana dashboard for visualizing CVE (Common Vulnerabil
 
 - **Comprehensive Data Visualization**: Display and analyze CVE data.
 - **Standards Integration**: Seamless integration with CVE, CWE, and CPE data.
-- **Interactive Filters**: Customize the data displayed with user-friendly filters.
 
 ## Setup Instructions
 

@@ -9,6 +9,8 @@ fi
 
 cd FastCVE || exit
 
+rm -rf .git
+
 echo "Creating .env file..."
 cat <<EOT > .env
 POSTGRES_PASSWORD=postgres_password

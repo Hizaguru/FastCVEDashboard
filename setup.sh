@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# Vaihe 1: Kloonaa FastCVE-repository
 if [ ! -d "FastCVE" ]; then
   echo "Cloning FastCVE repository..."
   git clone https://github.com/binareio/FastCVE.git

@@ -21,13 +21,16 @@ echo "Building Docker images..."
 docker-compose build
 
 echo "Starting Docker containers..."
-docker-compose up
+docker-compose up -d
 
+echo "Waiting for PostgreSQL to start..."
+until docker exec fastcve pg_isready -U postgres > /dev/null 2>&1; do
+  sleep 1
+done
+
+echo "Database is ready, loading data..."
 docker exec fastcve load --data cve cpe cwe capec
 
 echo "Setup complete. FastCVE is now running."
 
 docker run -d --name=grafana --network=fastcve_backend -p 3000:3000 grafana/grafana
-
-
-

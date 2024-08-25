@@ -32,12 +32,14 @@ If the problems persist, make sure that export FCDB_PORT has been set to port 54
 Ensure that both FastCVE and Grafana containers are running in the same Docker network, so it's easier to configure the grafana dashboard to fastcve backend.
 
 ```bash
-docker run -d --name=grafana -p 3000:3000 grafana/grafana
+docker run -d --name=grafana --network=fastcve_backend -p 3000:3000 grafana/grafana
 ```
 
 ### 3. Add the new DataSource
 
-![alt text](image-1.png)
+Connect postgress database to Grafana.
+
+![Connect postgress  database](image-2.png)
 
 ### 3. Import the Grafana Dashboard
 
@@ -51,4 +53,6 @@ Upload the dashboard.json file located in the FastCVEDashboard repository.
 
 ### 4. Access the Dashboard
 
-After importing the dashboard, you can access it directly through Grafana's interface and start exploring the CVE data.
+After importing the dashboard, you can access it directly through Grafana's interface and start exploring the vulnerability data.
+
+![alt text](image-3.png)

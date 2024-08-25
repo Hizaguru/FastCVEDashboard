@@ -25,6 +25,8 @@ This project provides a Grafana dashboard for visualizing CVE (Common Vulnerabil
 git clone https://github.com/binareio/FastCVE.git
 ```
 
+If the problems persist, make sure that export FCDB_PORT has been set to port 5432.
+
 ### 2. Run Grafana
 
 Ensure that both FastCVE and Grafana containers are running in the same Docker network, so it's easier to configure the grafana dashboard to fastcve backend.

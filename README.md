@@ -62,7 +62,8 @@ After importing the dashboard, you can access it directly through Grafana's inte
 
 ![alt text](images/image-3.png)
 
+After importing the dashboard, you can access it directly through Grafana's interface and start exploring the vulnerability data
+
 ```
 
-After importing the dashboard, you can access it directly through Grafana's interface and start exploring the vulnerability data
 ```

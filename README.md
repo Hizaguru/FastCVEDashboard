@@ -35,8 +35,6 @@ chmod +x setup.sh
 
 Connect the PostgreSQL database to Grafana.
 
-Connect PostgreSQL database
-
 ![Connect postgress  database](images/image-2.png)
 
 ### 3. Import the Grafana Dashboard

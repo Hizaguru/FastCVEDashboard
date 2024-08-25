@@ -39,7 +39,7 @@ docker run -d --name=grafana --network=fastcve_backend -p 3000:3000 grafana/graf
 
 Connect postgress database to Grafana.
 
-![Connect postgress  database](image-2.png)
+![Connect postgress  database](images/image-2.png)
 
 ### 3. Import the Grafana Dashboard
 
@@ -49,10 +49,10 @@ Go to Dashboards -> Manage.
 Click the Import button.
 Upload the dashboard.json file located in the FastCVEDashboard repository.
 
-![alt text](image.png)
+![alt text](images/image.png)
 
 ### 4. Access the Dashboard
 
 After importing the dashboard, you can access it directly through Grafana's interface and start exploring the vulnerability data.
 
-![alt text](image-3.png)
+![alt text](images/image-3.png)

@@ -19,31 +19,29 @@ This project provides a Grafana dashboard for visualizing CVE (Common Vulnerabil
 
 ## Automating the Setup with setup.sh
 
-To simplify the setup process, you can use the setup.sh script provided in this repository. This script automates the following tasks:
+To simplify the setup process, you can use the `setup.sh` script provided in this repository. This script automates the following tasks:
 
-    1. Cloning the FastCVE repository.
-    2. Navigating into the FastCVE directory.
-    3. Building the Docker images.
-    4. Starting the Docker containers.
+1. Cloning the FastCVE repository.
+2. Navigating into the FastCVE directory.
+3. Building the Docker images.
+4. Starting the Docker containers.
 
 ## How to Use setup.sh
 
-    Make the Script Executable:
+### 1. Make the Script Executable
 
-    Before running the script, you need to give it executable permissions. Run the following command in your terminal:
-
-#### 1. A
+Before running the script, you need to give it executable permissions. Run the following command in your terminal:
 
 ```bash
 chmod +x setup.sh
 ./setup.sh
 ```
 
-```
+### 2. Add the New DataSource
 
-### 3. Add the new DataSource
+Connect the PostgreSQL database to Grafana.
 
-Connect postgress database to Grafana.
+Connect PostgreSQL database
 
 ![Connect postgress  database](images/image-2.png)
 
@@ -55,6 +53,7 @@ Go to Dashboards -> Manage.
 Click the Import button.
 Upload the dashboard.json file located in the FastCVEDashboard repository.
 
+Dashboard Import
 ![alt text](images/image.png)
 
 ### 4. Access the Dashboard
@@ -62,4 +61,8 @@ Upload the dashboard.json file located in the FastCVEDashboard repository.
 After importing the dashboard, you can access it directly through Grafana's interface and start exploring the vulnerability data.
 
 ![alt text](images/image-3.png)
+
+```
+
+After importing the dashboard, you can access it directly through Grafana's interface and start exploring the vulnerability data
 ```

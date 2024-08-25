@@ -34,3 +34,5 @@ docker exec fastcve load --data cve cpe cwe capec
 echo "Setup complete. FastCVE is now running."
 
 docker run -d --name=grafana --network=fastcve_backend -p 3000:3000 grafana/grafana
+
+echo "Grafana is now running on http://localhost:3000"

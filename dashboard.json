@@ -34,7 +34,7 @@
         {
           "datasource": {
             "type": "grafana-postgresql-datasource",
-            "uid": "fdvkyyrrrqtq8a"
+            "uid": "fdw3mtfz2h4owd"
           },
           "description": "Shows base score, impact score and exploitability score.",
           "fieldConfig": {
@@ -68,7 +68,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -117,7 +118,7 @@
               "editorMode": "code",
               "format": "table",
               "rawQuery": true,
-              "rawSql": "SELECT \r\n    vuln_id AS \"Vulnerability ID\", \r\n    (data->'metrics'->'cvssMetricV2'->0->'cvssData'->>'baseScore')::float AS \"BaseScore\",\r\n    (data->'metrics'->'cvssMetricV2'->0->>'impactScore')::float AS \"ImpactScore\",\r\n    (data->'metrics'->'cvssMetricV2'->0->>'exploitabilityScore')::float AS \"ExploitabilityScore\"\r\nFROM \r\n    vuln \r\nWHERE \r\n    vuln_id IN ($VULNERABILITY)\r\nLIMIT 50;\r\n",
+              "rawSql": "SELECT \r\n    vuln_id AS \"Vulnerability ID\", \r\n    (data->'metrics'->'cvssMetricV2'->0->'cvssData'->>'baseScore')::float AS \"BaseScore\",\r\n    (data->'metrics'->'cvssMetricV2'->0->>'impactScore')::float AS \"ImpactScore\",\r\n    (data->'metrics'->'cvssMetricV2'->0->>'exploitabilityScore')::float AS \"ExploitabilityScore\"\r\nFROM \r\n    vuln \r\nWHERE \r\n    vuln_id IN ($VULNERABILITY)\r\nLIMIT 50;",
               "refId": "A",
               "sql": {
                 "columns": [
@@ -144,7 +145,7 @@
         {
           "datasource": {
             "type": "grafana-postgresql-datasource",
-            "uid": "fdvkyyrrrqtq8a"
+            "uid": "fdw3mtfz2h4owd"
           },
           "description": "",
           "fieldConfig": {
@@ -162,7 +163,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -256,7 +258,7 @@
               "editorMode": "code",
               "format": "table",
               "rawQuery": true,
-              "rawSql": "SELECT \r\n    vuln_id, \r\n    published_date, \r\n    last_modified_date, \r\n    description,\r\n    (data->'metrics'->'cvssMetricV2'->0->'cvssData'->>'baseScore')::float AS \"BaseScore\",\r\n    (data->'metrics'->'cvssMetricV2'->0->>'impactScore')::float AS \"ImpactScore\",\r\n    (data->'metrics'->'cvssMetricV2'->0->>'exploitabilityScore')::float AS \"ExploitabilityScore\"\r\nFROM \r\n    vuln \r\nWHERE \r\n    vuln_id IN ($VULNERABILITY)\r\nLIMIT 50;\r\n",
+              "rawSql": "SELECT \r\n    vuln_id, \r\n    published_date, \r\n    last_modified_date, \r\n    description,\r\n    (data->'metrics'->'cvssMetricV2'->0->'cvssData'->>'baseScore')::float AS \"BaseScore\",\r\n    (data->'metrics'->'cvssMetricV2'->0->>'impactScore')::float AS \"ImpactScore\",\r\n    (data->'metrics'->'cvssMetricV2'->0->>'exploitabilityScore')::float AS \"ExploitabilityScore\"\r\nFROM \r\n    vuln \r\nWHERE \r\n    vuln_id IN ($VULNERABILITY)\r\nLIMIT 50;",
               "refId": "A",
               "sql": {
                 "columns": [
@@ -330,11 +332,11 @@
               "table": "vuln"
             }
           ],
-          "title": "CVE VULNS",
+          "title": "VULN",
           "type": "table"
         }
       ],
-      "title": "CVE",
+      "title": "VULN",
       "type": "row"
     },
     {
@@ -350,7 +352,7 @@
         {
           "datasource": {
             "type": "grafana-postgresql-datasource",
-            "uid": "fdvkyyrrrqtq8a"
+            "uid": "fdw3mtfz2h4owd"
           },
           "fieldConfig": {
             "defaults": {
@@ -369,7 +371,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -407,7 +410,7 @@
               "editorMode": "code",
               "format": "table",
               "rawQuery": true,
-              "rawSql": "SELECT id, name, name_id, sys_creation_date, vendor, product \r\nFROM cpe \r\nWHERE name_id = '$CPE'\r\nLIMIT 50;\r\n",
+              "rawSql": "SELECT id, name, name_id, sys_creation_date, vendor, product \r\nFROM cpe\r\nWHERE name IN ($CPE)\r\nLIMIT 50;",
               "refId": "A",
               "sql": {
                 "columns": [
@@ -487,7 +490,7 @@
       "type": "row"
     },
     {
-      "collapsed": true,
+      "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -495,88 +498,94 @@
         "y": 2
       },
       "id": 4,
-      "panels": [
+      "panels": [],
+      "title": "CWE",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "fdw3mtfz2h4owd"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "color-text",
+              "wrapText": true
+            },
+            "inspect": true
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 13,
+        "w": 23,
+        "x": 0,
+        "y": 3
+      },
+      "id": 3,
+      "options": {
+        "cellHeight": "lg",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": ["sum"],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": false,
+            "displayName": "description"
+          }
+        ]
+      },
+      "pluginVersion": "11.1.4",
+      "targets": [
         {
           "datasource": {
             "type": "grafana-postgresql-datasource",
             "uid": "fdvkyyrrrqtq8a"
           },
-          "fieldConfig": {
-            "defaults": {
-              "custom": {
-                "align": "auto",
-                "cellOptions": {
-                  "type": "color-text",
-                  "wrapText": true
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT \r\n    id, \r\n    cwe_id, \r\n    name, \r\n    status, \r\n    description\r\nFROM \r\n    cwe\r\nWHERE cwe_id IN ($CWE)\r\nLIMIT 50;",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
                 },
-                "inspect": true
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green"
-                  }
-                ]
+                "type": "groupBy"
               }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 13,
-            "w": 23,
-            "x": 0,
-            "y": 22
-          },
-          "id": 3,
-          "options": {
-            "cellHeight": "lg",
-            "footer": {
-              "countRows": false,
-              "fields": "",
-              "reducer": ["sum"],
-              "show": false
-            },
-            "showHeader": true
-          },
-          "pluginVersion": "11.1.4",
-          "targets": [
-            {
-              "datasource": {
-                "type": "grafana-postgresql-datasource",
-                "uid": "fdvkyyrrrqtq8a"
-              },
-              "editorMode": "code",
-              "format": "table",
-              "rawQuery": true,
-              "rawSql": "SELECT \r\n    id, \r\n    cwe_id, \r\n    name, \r\n    status, \r\n    description\r\nFROM \r\n    cwe\r\nWHERE cwe_id IN ($CWE)\r\nLIMIT 50;\r\n",
-              "refId": "A",
-              "sql": {
-                "columns": [
-                  {
-                    "parameters": [],
-                    "type": "function"
-                  }
-                ],
-                "groupBy": [
-                  {
-                    "property": {
-                      "type": "string"
-                    },
-                    "type": "groupBy"
-                  }
-                ],
-                "limit": 50
-              }
-            }
-          ],
-          "title": "CWE table",
-          "type": "table"
+            ],
+            "limit": 50
+          }
         }
       ],
       "title": "CWE",
-      "type": "row"
+      "type": "table"
     }
   ],
   "schemaVersion": 39,
@@ -584,48 +593,19 @@
   "templating": {
     "list": [
       {
-        "allValue": "",
         "current": {
-          "selected": false,
-          "text": "CVE-1999-0001",
-          "value": "CVE-1999-0001"
+          "selected": true,
+          "text": ["CVE-1999-0001", "CVE-1999-0002", "CVE-1999-0003"],
+          "value": ["CVE-1999-0001", "CVE-1999-0002", "CVE-1999-0003"]
         },
-        "datasource": {
-          "type": "grafana-postgresql-datasource",
-          "uid": "fdvkyyrrrqtq8a"
-        },
-        "definition": "SELECT DISTINCT vuln_id FROM vuln\n",
+        "definition": "SELECT vuln_id from vuln",
         "hide": 0,
         "includeAll": false,
-        "label": "CVE VULNERABILITY",
+        "label": "VULNERABILITY",
         "multi": true,
         "name": "VULNERABILITY",
         "options": [],
-        "query": "SELECT DISTINCT vuln_id FROM vuln\n",
-        "refresh": 1,
-        "regex": "",
-        "skipUrlSync": false,
-        "sort": 1,
-        "type": "query"
-      },
-      {
-        "current": {
-          "selected": false,
-          "text": "000007A8-79E3-4DF7-A00E-326188269361",
-          "value": "000007A8-79E3-4DF7-A00E-326188269361"
-        },
-        "datasource": {
-          "type": "grafana-postgresql-datasource",
-          "uid": "fdvkyyrrrqtq8a"
-        },
-        "definition": "SELECT DISTINCT name_id FROM cpe ORDER BY name_id;",
-        "hide": 0,
-        "includeAll": false,
-        "label": "Enter CPE ",
-        "multi": false,
-        "name": "CPE",
-        "options": [],
-        "query": "SELECT DISTINCT name_id FROM cpe ORDER BY name_id;",
+        "query": "SELECT vuln_id from vuln",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -633,24 +613,41 @@
         "type": "query"
       },
       {
-        "allValue": "blank = ALL",
+        "allValue": "",
         "current": {
           "selected": true,
-          "text": ["5", "14"],
-          "value": ["5", "14"]
+          "text": ["cpe:2.3:a:01-scripts:01_artikelsystem:-:*:*:*:*:01acp:*:*"],
+          "value": ["cpe:2.3:a:01-scripts:01_artikelsystem:-:*:*:*:*:01acp:*:*"]
         },
-        "datasource": {
-          "type": "grafana-postgresql-datasource",
-          "uid": "fdvkyyrrrqtq8a"
+        "definition": "SELECT DISTINCT name FROM cpe;",
+        "description": "",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Enter CPE ",
+        "multi": true,
+        "name": "CPE",
+        "options": [],
+        "query": "SELECT DISTINCT name FROM cpe;",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": ["758", "1269"],
+          "value": ["758", "1269"]
         },
-        "definition": "SELECT DISTINCT cwe_id FROM cwe ORDER BY cwe_id",
+        "definition": "SELECT DISTINCT cwe_id FROM cwe;",
         "hide": 0,
         "includeAll": false,
         "label": "CWE",
         "multi": true,
         "name": "CWE",
         "options": [],
-        "query": "SELECT DISTINCT cwe_id FROM cwe ORDER BY cwe_id",
+        "query": "SELECT DISTINCT cwe_id FROM cwe;",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -667,6 +664,6 @@
   "timezone": "browser",
   "title": "vulnerability dashboard",
   "uid": "advl4ljmua29se",
-  "version": 22,
+  "version": 6,
   "weekStart": ""
 }

@@ -19,10 +19,10 @@ FCDB_PASS=fcdb_password
 EOT
 
 echo "Building Docker images..."
-docker-compose build
+docker-compose build --no-cache
 
 echo "Starting Docker containers..."
-docker-compose up -d
+docker-compose up
 
 echo "Waiting for PostgreSQL to start..."
 until docker exec fastcve pg_isready -U postgres > /dev/null 2>&1; do
